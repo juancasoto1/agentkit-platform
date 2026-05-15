@@ -10,6 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from db.database import init_db
 from app.auth.routes import router as auth_router
+from app.routes.agents import router as agents_router
+from app.webhook import router as webhook_router
 
 load_dotenv()
 
@@ -52,6 +54,8 @@ app.add_middleware(
 
 # Registrar routers
 app.include_router(auth_router)
+app.include_router(agents_router)
+app.include_router(webhook_router)
 
 
 @app.get("/")

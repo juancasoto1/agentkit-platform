@@ -61,3 +61,79 @@ class CompanyResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# ============= AGENTS =============
+
+class AgentCreateRequest(BaseModel):
+    """Request para crear agente"""
+    name: str = Field(..., min_length=2, max_length=255)
+    description: Optional[str] = None
+    system_prompt: str = Field(..., min_length=10, description="Instrucciones para el agente")
+    whatsapp_provider: str = Field(default="twilio", pattern="^(twilio|meta)$")
+
+
+class AgentUpdateRequest(BaseModel):
+    """Request para actualizar agente"""
+    name: Optional[str] = None
+    description: Optional[str] = None
+    system_prompt: Optional[str] = None
+
+
+class TwilioConfigRequest(BaseModel):
+    """Request para configurar Twilio"""
+    account_sid: str = Field(..., min_length=1)
+    auth_token: str = Field(..., min_length=1)
+    phone_number: str = Field(..., min_length=1)
+
+
+class MetaConfigRequest(BaseModel):
+    """Request para configurar Meta"""
+    access_token: str = Field(..., min_length=1)
+    phone_number_id: str = Field(..., min_length=1)
+    verify_token: str = Field(..., min_length=1)
+
+
+class AgentResponse(BaseModel):
+    """Response con datos del agente"""
+    id: int
+    name: str
+    description: Optional[str]
+    system_prompt: str
+    whatsapp_provider: str
+    is_active: bool
+    webhook_url: Optional[str]
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class MessageResponse(BaseModel):
+    """Response con un mensaje"""
+    id: int
+    role: str
+    content: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class ConversationResponse(BaseModel):
+    """Response con datos de conversación"""
+    id: int
+    agent_id: int
+    phone_number: str
+    client_name: Optional[str]
+    last_message_at: Optional[datetime]
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class ConversationDetailResponse(ConversationResponse):
+    """Response con conversación y sus mensajes"""
+    messages: list[MessageResponse] = []
