@@ -1,0 +1,41 @@
+# Backend
+backend/.env
+backend/.env.local
+backend/__pycache__/
+backend/*.py[cod]
+backend/.venv/
+backend/venv/
+backend/*.db
+backend/*.sqlite
+backend/dist/
+backend/build/
+
+# Frontend
+frontend/.env.local
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+frontend/.turbo/
+frontend/*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
+.env
+docker-compose.override.yml
+
+# Misc
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
