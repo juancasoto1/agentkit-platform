@@ -8,6 +8,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from db.database import init_db
+from app.auth.routes import router as auth_router
 
 load_dotenv()
 
@@ -23,6 +25,11 @@ async def lifespan(app: FastAPI):
     """Startup y shutdown del servidor."""
     logger.info(f"🚀 AgentKit Platform iniciando en puerto {PORT}")
     logger.info(f"Ambiente: {ENVIRONMENT}")
+
+    # Inicializar BD
+    await init_db()
+    logger.info("✅ Base de datos inicializada")
+
     yield
     logger.info("🛑 AgentKit Platform detenido")
 
@@ -42,6 +49,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Registrar routers
+app.include_router(auth_router)
 
 
 @app.get("/")
