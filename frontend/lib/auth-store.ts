@@ -1,6 +1,6 @@
-"""
-Store de Zustand para autenticación
-"""
+/**
+ * Store de Zustand para autenticación
+ */
 
 import { create } from "zustand";
 import { authAPI } from "./api";

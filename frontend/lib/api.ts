@@ -1,6 +1,6 @@
-"""
-Cliente HTTP para conectar con el backend
-"""
+/**
+ * Cliente HTTP para conectar con el backend
+ */
 
 import axios from "axios";
 

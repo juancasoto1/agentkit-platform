@@ -17,12 +17,15 @@ ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
-# Context para hashing de contraseñas
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Context para hashing de contraseñas usando Argon2 (sin límite de bytes)
+pwd_context = CryptContext(
+    schemes=["argon2"],
+    deprecated="auto",
+)
 
 
 def hash_password(password: str) -> str:
-    """Hashear contraseña"""
+    """Hashear contraseña con Argon2"""
     return pwd_context.hash(password)
 
 
